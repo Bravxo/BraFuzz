@@ -1,0 +1,24 @@
+profiles:
+  - name: "Simple Web Scan"
+    options:
+      - description: "Directorios comunes"
+        command: "wfuzz -c -w wordlists/dirs.txt --hc 404 --delay 0.2 --threads 5 -H 'User-Agent: FUZZ' -w wordlists/user-agents.txt {target}/FUZZ"
+
+      - description: "Archivos sensibles"
+        command: "wfuzz -c -w wordlists/files.txt --hc 404 --delay 0.2 --threads 5 -H 'User-Agent: FUZZ' -w wordlists/user-agents.txt {target}/FUZZ"
+
+  - name: "WordPress Fuzzing"
+    options:
+      - description: "Usuarios en wp-login"
+        command: "wfuzz -c -w wordlists/users.txt --hc 404 --delay 0.2 --threads 5 -H 'User-Agent: FUZZ' -w wordlists/user-agents.txt {target}/wp-login.php?log=FUZZ&pwd=test"
+
+      - description: "Plugins"
+        command: "wfuzz -c -w wordlists/plugins.txt --hc 404 --delay 0.2 --threads 5 -H 'User-Agent: FUZZ' -w wordlists/user-agents.txt {target}/wp-content/plugins/FUZZ/"
+
+  - name: "Advanced Fuzzing"
+    options:
+      - description: "Endpoints en APIs"
+        command: "wfuzz -c -w wordlists/apis.txt --hc 404 --delay 0.2 --threads 5 -H 'User-Agent: FUZZ' -w wordlists/user-agents.txt {target}/api/FUZZ"
+
+      - description: "Headers HTTP"
+        command: "wfuzz -c -w wordlists/headers.txt --hc 404 --delay 0.2 --threads 5 -H 'FUZZ: test' {target}/"
