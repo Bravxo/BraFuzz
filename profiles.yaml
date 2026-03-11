@@ -2,23 +2,23 @@ profiles:
   - name: "Simple Web Scan"
     options:
       - description: "Directorios comunes"
-        command: "wfuzz -c -z file,wordlists/dirs.txt --hc 404 -H 'User-Agent: FUZZ' -z file,wordlists/user-agents.txt {target}/FUZZ"
+        command: "wfuzz -c -z file,wordlists/dirs.txt --hc 404 {target}/FUZZ"
 
       - description: "Archivos sensibles"
-        command: "wfuzz -c -z file,wordlists/files.txt --hc 404 -H 'User-Agent: FUZZ' -z file,wordlists/user-agents.txt {target}/FUZZ"
+        command: "wfuzz -c -z file,wordlists/files.txt --hc 404 {target}/FUZZ"
 
   - name: "WordPress Fuzzing"
     options:
       - description: "Usuarios en wp-login"
-        command: "wfuzz -c -z file,wordlists/users.txt --hc 404 -H 'User-Agent: FUZZ' -z file,wordlists/user-agents.txt {target}/wp-login.php?log=FUZZ&pwd=test"
+        command: "wfuzz -c -z file,wordlists/users.txt --hc 404 {target}/wp-login.php?log=FUZZ&pwd=test"
 
       - description: "Plugins"
-        command: "wfuzz -c -z file,wordlists/plugins.txt --hc 404 -H 'User-Agent: FUZZ' -z file,wordlists/user-agents.txt {target}/wp-content/plugins/FUZZ/"
+        command: "wfuzz -c -z file,wordlists/plugins.txt --hc 404 {target}/wp-content/plugins/FUZZ/"
 
   - name: "Advanced Fuzzing"
     options:
       - description: "Endpoints en APIs"
-        command: "wfuzz -c -z file,wordlists/apis.txt --hc 404 -H 'User-Agent: FUZZ' -z file,wordlists/user-agents.txt {target}/api/FUZZ"
+        command: "wfuzz -c -z file,wordlists/apis.txt --hc 404 {target}/api/FUZZ"
 
-      - description: "Headers HTTP"
-        command: "wfuzz -c -z file,wordlists/headers.txt --hc 404 -H 'FUZZ: test' {target}/"
+      - description: "Headers HTTP con User-Agent"
+        command: "wfuzz -c -z file,wordlists/dirs.txt -z file,wordlists/user-agents.txt --hc 404 -H 'User-Agent: FUZ2Z' {target}/FUZZ"
