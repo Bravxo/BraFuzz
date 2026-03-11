@@ -3,9 +3,15 @@ import subprocess
 import yaml
 
 # === Cargar perfiles desde YAML ===
-def load_profiles(path="profiles.yaml"):
-    with open(path, "r") as f:
-        return yaml.safe_load(f)["profiles"]
+import os
+
+def load_profiles():
+    for path in ["profiles.yaml", "profile.yaml"]:
+        if os.path.exists(path):
+            with open(path, "r") as f:
+                return yaml.safe_load(f)["profiles"]
+    raise FileNotFoundError("No profiles.yaml or profile.yaml found")
+
 
 # === Ejecutar comando externo ===
 def run_command(command):
